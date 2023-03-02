@@ -1,18 +1,11 @@
 import streamlit as st
-import requests
-from bs4 import BeautifulSoup
+from mal import Anime
 import pickle
 
 st.set_page_config(layout="wide")
 
-
-
 def fetch_poster(anime_id):
-    headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win 64 ; x64) Apple WeKit /537.36(KHTML , like Gecko) Chrome/80.0.3987.162 Safari/537.36'}
-    webpage=requests.get(f'https://myanimelist.net/anime/{anime_id}',headers=headers).text
-    soup = BeautifulSoup(webpage,'lxml')
-    anime_url = soup.find_all('meta',property="og:image")
-    poster_link = anime_url[0]['content']
+    poster_link = Anime(mal_id=anime_id).image_url
     return poster_link
 
 
